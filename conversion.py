@@ -109,10 +109,7 @@ def Convert(input_text):
     split_text = ""
 
 
-    for line in split_lines:
-        split_text = line.split(" ")
-        # Process each word in split_text as needed
-        print(split_text)
+   
 
     return_text = ""
     i = 0
