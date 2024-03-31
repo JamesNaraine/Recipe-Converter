@@ -11,7 +11,7 @@ input_text = """4/5 lbs of meat
 1 egg whites
 1/3 cup berries"""
 
-input_text = input_text.replace("\n"," ")
+input_text = input_text.replace("\n"," # ")
 a  = input_text.split(" ")
 
 
@@ -67,7 +67,7 @@ output = []
 
 # find_slash("144/162")
 
-Reciepe_conversion = {
+target_dictionary = {
     "lbs" : {
         "measurement": "kg",
         "multiplier" : 0.45
@@ -153,12 +153,39 @@ Cup_conversion = {
 }
 
 
+Oppersite_conversion = {}
+
+for key in target_dictionary:
+    unit_info = target_dictionary[key]
+    if 'multiplier' in unit_info and unit_info['multiplier']:
+        Oppersite_conversion[unit_info['measurement']] = {
+            "measurement": key,
+            "multiplier": float(round(1/unit_info['multiplier'],2)) } 
+
+
+for key in Oppersite_conversion:
+    unit_info = Oppersite_conversion[key]
+    print(f"{key} : {unit_info['measurement']} : {unit_info['multiplier']}")
+
+
+
+
 print("")
 print("this is the output before the main loop, after the slash conversion")
 print("")
 print(output)
 
+Reciepe_Imperial = True
+
+target_dictionary = {}
+
+if Reciepe_Imperial == True:
+    target_dictionary = target_dictionary
+else:
+    target_dictionary = Oppersite_conversion
+
 count = 0
+
 
 for word in a:
     subcount = 0
@@ -169,7 +196,7 @@ for word in a:
     print(f"current item = {item}")
     previous_value = 0
     # if it is, remove the previous entry to a and convert the value
-    if item.lower() in Reciepe_conversion.keys():
+    if item.lower() in target_dictionary.keys():
         previous_value = float(output[-1])
         print(f"previous value = {previous_value}")
         output.pop()
@@ -193,8 +220,8 @@ for word in a:
             
         else: 
         
-            output.append(round(previous_value * float(Reciepe_conversion[item]["multiplier"]),3))
-            output.append(Reciepe_conversion[item]["measurement"])
+            output.append(round(previous_value * float(target_dictionary[item]["multiplier"]),3))
+            output.append(target_dictionary[item]["measurement"])
     else:
         output.append(item)
         # if a isn't in the receipe conversion dictionary pass
@@ -213,6 +240,16 @@ for i in output:
     final += str(i) 
     final += " "
 
+print("this is befopre the replace \n\n")
+
 print(final)
-    
-    
+
+
+final = final.replace("# ", "\n")
+
+print("\n\n this is after the replace")
+
+print(final)
+
+for i in output:
+    print(i)
