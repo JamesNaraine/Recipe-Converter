@@ -153,19 +153,19 @@ Cup_conversion = {
 }
 
 
-Oppersite_conversion = {}
+Opposite_conversion = {}
 
 for key in target_dictionary:
     unit_info = target_dictionary[key]
     if 'multiplier' in unit_info and unit_info['multiplier']:
-        Oppersite_conversion[unit_info['measurement']] = {
+        Opposite_conversion[unit_info['measurement']] = {
             "measurement": key,
             "multiplier": float(round(1/unit_info['multiplier'],2)) } 
 
 
-for key in Oppersite_conversion:
-    unit_info = Oppersite_conversion[key]
-    print(f"{key} : {unit_info['measurement']} : {unit_info['multiplier']}")
+# for key in Oppersite_conversion:
+#     unit_info = Oppersite_conversion[key]
+#     print(f"{key} : {unit_info['measurement']} : {unit_info['multiplier']}")
 
 
 
@@ -182,7 +182,7 @@ target_dictionary = {}
 if Reciepe_Imperial == True:
     target_dictionary = target_dictionary
 else:
-    target_dictionary = Oppersite_conversion
+    target_dictionary = Opposite_conversion
 
 count = 0
 

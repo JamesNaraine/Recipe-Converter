@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, scrolledtext
-import conversion
+import UserInput
 
 class RecipeApp(tk.Tk):
     def __init__(self):
@@ -54,7 +54,7 @@ class RecipeApp(tk.Tk):
 
     def convert_recipe(self):
         recipe = self.input_text.get("1.0", "end-1c")
-        converted_recipe = conversion.Convert(recipe)  # Ensure conversion is defined
+        converted_recipe = UserInput.Convert(recipe)  # Ensure conversion is defined
         self.output_text.delete("1.0", "end")
         self.output_text.insert("end", converted_recipe)
 

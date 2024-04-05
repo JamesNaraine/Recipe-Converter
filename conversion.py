@@ -1,137 +1,208 @@
 
-Conversion_dictionary = {
-"1/4 cup"  :  "60 mL",
-"1/3 cup" : "70 mL",
-"1/2 cup" : "125 mL",
-"2/3 cup" : "150 mL",
-"3/4 cup" : "175 mL",
-"1 cup" : "250 mL",
-"1 1/2 cups" : "375 mL",
-"2 cups" : "500 mL",
-"4 cups" : "1 liter",
-"25 ml" : "1 fl oz",
-"50 ml" : "2 fl oz",
-"75 ml" : "2 1/2 fl oz",
-"100 ml" : "3 1/2 fl oz",
-"125 ml" : "4 fl oz",
-"150 ml" : "5 fl oz",
-"175 ml" : "6 fl oz",
-"200 ml" : "7 fl oz",
-"225 ml" : "8 fl oz",
-"250 ml" : "9 fl oz",
-"300 ml" : "10 fl oz",
-"350 ml" : "12 fl oz",
-"400 ml" : "14 fl oz",
-"425 ml" : "15 fl oz",
-"450 ml" : "16 fl oz",
-"500 ml" : "18 fl oz",
-"600 ml" : "1 pint",
-"700 ml" : "1 1/4 pints",
-"850 ml" : "1 1/2 pints",
-"1 litre" : "1 3/4 pints",
-"1.5 litres" : "2 3/4 pints",
-"2 litres" : "3 1/2 pints",
-"2.5 litres" : "4 1/2 pints",
-"3 litres" : "5 1/4 pints",
-"110 C" : "225 F",
-"120 C" : "250 F",
-"140 C" : "275 F",
-"150 C" : "300 F",
-"160 C" : "320 F",
-"170 C" : "340 F",
-"180 C" : "350 F",
-"190 C" : "375 F",
-"200 C" : "400 F",
-"220 C" : "425 F",
-"230 C" : "450 F",
-"15 grams" : "1/2 oz",
-"25 grams" : "1 oz",
-"40 grams" : "1 1/2 oz",
-"55 grams" : "2 oz",
-"70 grams" : "2 1/2 oz",
-"85 grams" : "3 oz",
-"100 grams" : "3 1/2 oz",
-"115 grams" : "4 oz",
-"125 grams" : "4 1/2 oz",
-"140 grams" : "5 oz",
-"150 grams" : "5 1/2 oz",
-"175 grams" : "6 oz",
-"200 grams" : "7 oz",
-"225 grams" : "8 oz",
-"250 grams" : "9 oz",
-"280 grams" : "10 oz",
-"315 grams" : "11 oz",
-"350 grams" : "12 oz",
-"375 grams" : "13 oz",
-"400 grams" : "14 oz",
-"425 grams" : "15 oz",
-"450 grams" : "1 lb",
-"500 grams" : "1 lb 2 oz",
-"600 grams" : "1 lb 5 oz",
-"700 grams" : "1 lb 9 oz",
-"800 grams" : "1 lb 12 oz",
-"900 grams" : "2 lbs",
-"1 kg" : "2 lbs 4 oz",
-"1 teaspoon": "5 mL",
-"2 teaspoons": "10 mL",
-"3 teaspoons": "15 mL", 
-"4 teaspoons": "20 mL",
-"5 teaspoons": "25 mL",
-"6 teaspoons": "30 mL",
-"1 tablespoon": "15 mL",
-"1 tablespoon": "15 mL",
-"2 tablespoons": "30 mL",
-"3 tablespoons": "45 mL",
-"4 tablespoons": "60 mL",  # Equivalent to 1/4 cup
-"5 tablespoons": "75 mL",
-"6 tablespoons": "90 mL",
-"7 tablespoons": "105 mL",
-"8 tablespoons": "120 mL",
-}
+from Dictionary import Imperial_dictionary, Cup_conversion, Metric_dictionary 
+
+# from Conversion import find_slash, convert_fraction
+
+def convert_fraction(x,y):
+    try:
+        x = float(x)
+        y = float(y)
+        return round(x / y, 2)
+    except ValueError:
+        return "Invalid input"
 
 
-print(Conversion_dictionary["1/4 cup"])
-
-test_text = """1/4 cup soft white breadcrumbs
-2 teaspoons Worcestershire sauce
-1 tablespoon water
-1 tablespoon milk
-1 teaspoon seasoned salt
-1 teaspoon onion powder
-1/2 teaspoon freshly ground black pepper
-1 1/4 pounds ground beef
-4 sandwich buns, split and toasted"""
+# print(convert_fraction(1,4))
 
 
-def Convert(input_text):
-
-    split_lines = input_text.splitlines()
-    split_text = ""
-
-
-   
-
-    return_text = ""
-    i = 0
+def find_slash(string):
+    index_slash = 0
+    x = ""
+    y = ""
 
 
-    converted_text = ""
+    if "/" in string:
+        parts = string.split("/")  # Split the string into two parts
+        return str(convert_fraction(parts[0], parts[1]))
+    else:
+        return(string)
+    
 
-    for line in split_lines:
-        split_text = line.split(" ")
-        i = 0
-        converted_line = ""
-        while i < len(split_text):
-            # Check if the current and next word form a key in the dictionary
-            if i < len(split_text) - 1 and " ".join(split_text[i:i+2]) in Conversion_dictionary:
-                # Add the conversion to converted_line
-                converted_line += Conversion_dictionary[" ".join(split_text[i:i+2])] + " "
-                i += 2  # Skip the next word as it's part of the current measurement
-            else:
-                # If no conversion, add the word as is
-                converted_line += split_text[i] + " "
-                i += 1
-        converted_text += converted_line + "\n"
-    return converted_text
+def is_number(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
 
-print(Convert(test_text))
+
+# print("Imperial_dictionary")
+# print(Imperial_dictionary)
+# print("Opposite_conversion")
+# print(Metric_dictionary)
+
+
+
+
+# print("")
+# print("This is the input")
+# print("")
+# print("")
+# print(a)
+
+# int = 1,2 ,3 ,4 ,68
+
+# floats = 4.5,6.7 3.141558985
+
+
+
+
+# print("")
+# print("this is the output before the main loop, after the slash conversion")
+# print("")
+# print(output)
+
+
+
+
+# for key in Oppersite_conversion:
+#     unit_info = Oppersite_conversion[key]
+#     print(f"{key} : {unit_info['measurement']} : {unit_info['multiplier']}")
+
+
+
+
+# print("")
+# print("this is the output before the main loop, after the slash conversion")
+# print("")
+# print(output)
+
+Reciepe_Imperial = True
+
+def main_loop(Reciepe_Imperial, input_text):
+    global Imperial_dictionary
+    global Metric_dictionary
+    global Cup_conversion
+
+    output = []
+    a = []
+    target_dictionary = {}
+    after_replace =[]
+    after_slash = []
+    after_is_num =[]   
+
+
+
+    input_text = input_text.replace("\n"," # ")
+    after_replace = input_text.split(" ")
+
+    print(f"after_replace = {after_replace}")
+
+    for item in after_replace:
+        after_slash.append(find_slash(item))
+
+    print(f"after_slash = {after_slash}")
+
+    for i in range(len(after_slash)-1):
+        if is_number(after_slash[i]) and i < len(after_slash) - 1 and is_number(after_slash[i+1]):
+                # Sum the current and next number if they are both numeric
+                x = float(float(after_slash[i]) + float(after_slash[i + 1]))
+                after_is_num.append(str(x))
+        elif is_number(after_slash[i]) and is_number(after_slash[i-1]):
+                # Skip if the previous and current elements are numbers
+                pass
+        else:
+            # Append the current element if it is not a number
+            after_is_num.append(after_slash[i])
+    after_is_num.append(after_slash[-1])
+        
+
+
+    print(f"after_is_num = {after_is_num}")
+
+
+
+    
+    after_is_num = [item for item in after_is_num if item != ""]
+
+    a = after_is_num
+
+
+    if Reciepe_Imperial == True:
+        target_dictionary = Imperial_dictionary
+    else:
+        target_dictionary = Metric_dictionary
+
+    count = 0
+
+    for word in a:
+        subcount = 0
+        
+        count += 1
+        item = str(word).lower()
+        
+        # print(f"current item = {item}")
+        previous_value = 0
+        # if it is, remove the previous entry to a and convert the value
+        if item.lower() in target_dictionary.keys():
+            previous_value = float(output[-1])
+            # print(f"previous value = {previous_value}")
+            output.pop()
+            if item.lower() == "cup" or item.lower() == "cups":
+                # print(f"Cup Checking {item}")
+                # print(f"count number = {count}")
+                for i in range(count+1,min(count+5,len(a))):
+                    if subcount > 0:
+                        break
+                    # print(f"Checking {a[i]}")
+                    if a[i] in Cup_conversion.keys():
+                        output.append(round(previous_value * float(Cup_conversion[a[i]]["multiplier"]),3))
+                        output.append(Cup_conversion[a[i]]["measurement"])
+                        subcount += 1
+                        
+                        
+                if subcount == 0 :
+                    output.append(round(previous_value * float(200),3))
+                    output.append("g")
+                                            
+                
+            else: 
+            
+                output.append(round(previous_value * float(target_dictionary[item]["multiplier"]),3))
+                output.append(target_dictionary[item]["measurement"])
+        else:
+            output.append(item)
+            # if a isn't in the receipe conversion dictionary pass
+
+    print(f"output ={output}")
+    final = ""
+
+    for i in output:
+        final += str(i) 
+        final += " "
+    
+    final = final.replace("# ", "\n")
+
+    return final
+
+
+# print(f"current output= {output}")
+    
+
+# print("")
+# print("this is the output")
+# print("")
+
+# print("this is befopre the replace \n\n")
+
+
+# print(main(True, "3 lbs of ham"))
+
+
+
+# print("\n\n this is after the replace")
+
+# print(final)
+
+# for i in output:
+#     print(i)
