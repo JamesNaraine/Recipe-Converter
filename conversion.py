@@ -1,5 +1,6 @@
 
 from Dictionary import Imperial_dictionary, Cup_conversion, Metric_dictionary 
+from math import trunc
 
 # from Conversion import find_slash, convert_fraction
 
@@ -156,7 +157,7 @@ def main_loop(Reciepe_Imperial, input_text):
                         break
                     # print(f"Checking {a[i]}")
                     if a[i] in Cup_conversion.keys():
-                        output.append(round(previous_value * float(Cup_conversion[a[i]]["multiplier"]),3))
+                        output.append(trunc(round(previous_value * float(Cup_conversion[a[i]]["multiplier"]),0)))
                         output.append(Cup_conversion[a[i]]["measurement"])
                         subcount += 1
                         
@@ -168,7 +169,7 @@ def main_loop(Reciepe_Imperial, input_text):
                 
             else: 
             
-                output.append(round(previous_value * float(target_dictionary[item]["multiplier"]),3))
+                output.append(round(previous_value * float(target_dictionary[item]["multiplier"]), target_dictionary[item]["round"]))
                 output.append(target_dictionary[item]["measurement"])
         else:
             output.append(item)

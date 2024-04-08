@@ -1,7 +1,8 @@
-from Conversion import main_loop
+from conversion import main_loop
+from Translator import Translating
 
 
-
+language = "de"
 
 
 input_text = """4/5 lbs of meat
@@ -17,5 +18,6 @@ input_text = """4/5 lbs of meat
 1 egg whites
 1/3 cup berries"""
 
-print(main_loop(True,input_text))
+preTranslatedOutput = main_loop(True,input_text)
+print(Translating(preTranslatedOutput, language))
 

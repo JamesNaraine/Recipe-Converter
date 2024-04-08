@@ -1,44 +1,47 @@
+
+
 Imperial_dictionary = {
-    "lbs" : {
+    "lbs": {
         "measurement": "kg",
-        "multiplier" : 0.45
+        "multiplier": 0.45,
+        "round": 3  
     },
     "pint": {
         "measurement": "l",
-        "multiplier": 0.473176
-    },
-    "lbs": {
-        "measurement": "kg",
-        "multiplier": 0.453592
+        "multiplier": 0.473176,
+        "round": 1  
     },
     "oz": {
         "measurement": "g",
-        "multiplier": 28.3495
+        "multiplier": 28.3495,
+        "round": 1  
     },
     "tsp": {
         "measurement": "ml",
-        "multiplier": 4.92892
+        "multiplier": 4.92892,
+        "round": 1  
     },
     "tbsp": {
         "measurement": "ml",
-        "multiplier": 14.7868
-    },
-
-    "pint": {
-        "measurement": "l",
-        "multiplier": 0.473176
+        "multiplier": 14.7868,
+        "round": 1  
     },
     "quart": {
         "measurement": "l",
-        "multiplier": 0.946353
+        "multiplier": 0.946353,
+        "round": 1  
     },
     "gallon": {
         "measurement": "l",
-        "multiplier": 3.78541
+        "multiplier": 3.78541,
+        "round": 1  
     },
-    "cup": "",
-    "cups": ""
-}
+    "cup" :"",
+    
+    "cups" : ""
+        
+    }
+
 
 Cup_conversion = {
     "flour": {
@@ -90,4 +93,5 @@ for key in Imperial_dictionary:
     if 'multiplier' in unit_info and unit_info['multiplier']:
         Metric_dictionary[unit_info['measurement']] = {
             "measurement": key,
-            "multiplier": float(round(1/unit_info['multiplier'],2)) } 
+            "multiplier": float(round(1/unit_info['multiplier'],2))  ,
+            "round" : unit_info["round"] }
