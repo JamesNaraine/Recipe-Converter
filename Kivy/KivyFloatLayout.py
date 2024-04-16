@@ -9,8 +9,14 @@ from kivy.properties import ObjectProperty
 from kivy.uix. floatlayout import FloatLayout
 
 
-from ..conversion import main_loop
-from ..Translator import Translating
+import sys
+from pathlib import Path
+
+parent_dir = str(Path(__file__).resolve().parent.parent)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from conversion import main_loop
 
 # class MyGrid(GridLayout):
 #     def __init__(self, **kwargs):

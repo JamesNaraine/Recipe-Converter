@@ -8,9 +8,15 @@ from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.uix. floatlayout import FloatLayout
 
+import sys
+from pathlib import Path
 
-from ..conversion import main_loop
-from ..Translator import Translating
+parent_dir = str(Path(__file__).resolve().parent.parent)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from conversion import main_loop
+
 
 # class MyGrid(GridLayout):
 #     def __init__(self, **kwargs):
@@ -50,18 +56,20 @@ from ..Translator import Translating
 
 
 inputtext = "lukethisdoesn'twork"
+output = ""
 
 class MyGrid(Widget):
     input = ObjectProperty(None)
-    email = ObjectProperty(None)
+    output = ObjectProperty("")
 
     def btn(self):
         inputtext = str(self.input.text)
         preTranslatedOutput = main_loop(True,inputtext)
-
-        print(preTranslatedOutput )
+        self.output.text = preTranslatedOutput
+        print(preTranslatedOutput)
         self.input.text = ""
-        self.email.text = ""
+
+
 
 class MyApp(App):
     def build(self):
