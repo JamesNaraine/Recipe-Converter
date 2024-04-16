@@ -1,21 +1,30 @@
 <MyGrid>
+
+    input: input
+    email: email
+
     GridLayout:
         cols:1
-        size: root.width, root.height
+        size: root.width - 100, root.height - 100
 
         GridLayout:
             cols:2
             Label:
-                text: "Name: "
+                text: "Input: "
 
             TextInput:
+                id: input
                 multiline:False
 
             Label:
                 text: "Email: "
 
             TextInput:
+                id: email
                 multiline:False
 
         Button:
             text: "Submit"
+            on_press: root.btn()
+
+<FloatLayout>

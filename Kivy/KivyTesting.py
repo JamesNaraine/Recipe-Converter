@@ -5,6 +5,12 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+from kivy.uix. floatlayout import FloatLayout
+
+
+from ..conversion import main_loop
+from ..Translator import Translating
 
 # class MyGrid(GridLayout):
 #     def __init__(self, **kwargs):
@@ -42,9 +48,21 @@ from kivy.uix.widget import Widget
 #         self.lastName.text = ""
 #         self.email.text = ""
 
+
+inputtext = "lukethisdoesn'twork"
+
 class MyGrid(Widget):
-    pass
-       
+    input = ObjectProperty(None)
+    email = ObjectProperty(None)
+
+    def btn(self):
+        inputtext = str(self.input.text)
+        preTranslatedOutput = main_loop(True,inputtext)
+
+        print(preTranslatedOutput )
+        self.input.text = ""
+        self.email.text = ""
+
 class MyApp(App):
     def build(self):
 #         ##return Label(text="IM RICH", font_size=300, color="brown")
@@ -53,5 +71,6 @@ class MyApp(App):
 
 if __name__ == "__main__":
     MyApp().run()
+
 
 

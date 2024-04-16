@@ -97,12 +97,12 @@ def main_loop(Reciepe_Imperial, input_text):
     input_text = input_text.replace("\n"," # ")
     after_replace = input_text.split(" ")
 
-    print(f"after_replace = {after_replace}")
+    # print(f"after_replace = {after_replace}")
 
     for item in after_replace:
         after_slash.append(find_slash(item))
 
-    print(f"after_slash = {after_slash}")
+    # print(f"after_slash = {after_slash}")
 
     for i in range(len(after_slash)-1):
         if is_number(after_slash[i]) and i < len(after_slash) - 1 and is_number(after_slash[i+1]):
@@ -119,7 +119,7 @@ def main_loop(Reciepe_Imperial, input_text):
         
 
 
-    print(f"after_is_num = {after_is_num}")
+    # print(f"after_is_num = {after_is_num}")
 
 
 
@@ -175,7 +175,7 @@ def main_loop(Reciepe_Imperial, input_text):
             output.append(item)
             # if a isn't in the receipe conversion dictionary pass
 
-    print(f"output ={output}")
+    # print(f"output ={output}")
     final = ""
 
     for i in output:
