@@ -7,6 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.uix. floatlayout import FloatLayout
+from kivy.properties import StringProperty
 
 
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -17,28 +18,32 @@ parent_dir = str(Path(__file__).resolve().parent.parent.parent)
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
+
+output_text = ""
+
 from conversion import main_loop
 
-class MyGrid(Widget):
+class MainWindow(Screen):
     input = ObjectProperty(None)
-    output = ObjectProperty(None)
+    output = StringProperty('') 
 
     def btn(self):
         inputtext = str(self.input.text)
         preTranslatedOutput = main_loop(True,inputtext)
         # self.output.text = preTranslatedOutput
         print(preTranslatedOutput)
+        output_text = preTranslatedOutput
+        self.output = preTranslatedOutput
         self.input.text = ""
-
-
-class MainWindow(Screen):
-    pass
 
 class LoadingWindow(Screen):
     pass
 
 class OutputWindow(Screen):
-    pass
+    output = ObjectProperty(None)
+    def output_text_display(self):
+        print(self.manager.get_screen('main').output)
+        return 
 
 class WindowManager(ScreenManager):
     pass

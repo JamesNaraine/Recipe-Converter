@@ -15,7 +15,6 @@ WindowManager:
     name: "main"
 
     input: input
-    output: output
 
     GridLayout:
         cols:1
@@ -30,9 +29,8 @@ WindowManager:
 
             Button:
                 text: "go"
-                on_press: 
-                    app.root.current = "out"
-                    # run code
+                on_press: root.btn()
+                on_press: app.root.current = "out"
 
             Widget:
 
@@ -64,11 +62,16 @@ WindowManager:
     name: "Loading"
 
 <OutputWindow>:
-    name: "Output"
+    name: "out"
 
-    Button:
-        text: "Go"
-        on_release: 
-            app.root.current = "main"
+    BoxLayout:
+        orientation : "horizontal"
 
-<FloatLayout>
+        Label:
+            text: "output go here"
+
+
+        Button:
+            text: "go back"
+            on_release: 
+                app.root.current = "main"
