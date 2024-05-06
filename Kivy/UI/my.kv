@@ -7,14 +7,14 @@ WindowManager:
         name: "load"
         id: loading_window
     OutputWindow:
-        name: "out"
+        name: "output"
         id: output_window
 
 
 <MainWindow>:
     name: "main"
 
-    input: input
+    input_text: input_field
 
     GridLayout:
         cols:1
@@ -30,12 +30,12 @@ WindowManager:
             Button:
                 text: "go"
                 on_press: root.btn()
-                on_press: app.root.current = "out"
+                on_press: app.root.current = "output"
 
             Widget:
 
         TextInput:
-            id: input
+            id: input_field
             size_hint:0.8, 0.6
             pos_hint: {"center_x": 0.5, "top": 0.90}
             multiline: True
@@ -62,13 +62,13 @@ WindowManager:
     name: "Loading"
 
 <OutputWindow>:
-    name: "out"
+    name: "output"
 
     BoxLayout:
         orientation : "horizontal"
 
         Label:
-            text: "output go here"
+            text: root.output_text
 
 
         Button:

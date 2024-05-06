@@ -6,7 +6,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
-from kivy.uix. floatlayout import FloatLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
 
 
@@ -24,26 +24,22 @@ output_text = ""
 from conversion import main_loop
 
 class MainWindow(Screen):
-    input = ObjectProperty(None)
-    output = StringProperty('') 
+    input_text = ObjectProperty(None)
+    
 
     def btn(self):
-        inputtext = str(self.input.text)
-        preTranslatedOutput = main_loop(True,inputtext)
-        # self.output.text = preTranslatedOutput
+        input_text = str(self.input_text.text)
+        preTranslatedOutput = main_loop(True,input_text)
         print(preTranslatedOutput)
-        output_text = preTranslatedOutput
-        self.output = preTranslatedOutput
-        self.input.text = ""
+        self.manager.get_screen("output").output_text = preTranslatedOutput
+        self.manager.current = "output"
+        self.input_text.text = ""
 
 class LoadingWindow(Screen):
     pass
 
 class OutputWindow(Screen):
-    output = ObjectProperty(None)
-    def output_text_display(self):
-        print(self.manager.get_screen('main').output)
-        return 
+    output_text = StringProperty("")
 
 class WindowManager(ScreenManager):
     pass
@@ -64,7 +60,7 @@ if parent_dir not in sys.path:
 from conversion import main_loop
 
 
-inputtext = "lukethisdoesn'twork"
+
 output = ""
 
 

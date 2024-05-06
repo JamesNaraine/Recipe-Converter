@@ -1,0 +1,25 @@
+WindowManager:
+    MainWindow:
+        name: "main"
+    OutputWindow:
+        name: "output"
+
+<MainWindow>:
+    input_text: input_field
+    FloatLayout:
+        TextInput:
+            id: input_field
+            size_hint: 0.8, 0.1
+            pos_hint: {"x": 0.1, "top": 0.9}
+            multiline: False
+        Button:
+            text: "Translate"
+            size_hint: 0.8, 0.1
+            pos_hint: {"x": 0.1, "y": 0.1}
+            on_release: root.btn()
+
+<OutputWindow>:
+    Label:
+        text: root.output_text
+        size_hint: 0.8, 0.1
+        pos_hint: {"x": 0.1, "y": 0.5}
