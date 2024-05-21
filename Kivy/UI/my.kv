@@ -48,6 +48,7 @@ WindowManager:
 
             Button:
                 text: "camera"
+                on_release: root.take_picture()
 
 
             Button:
@@ -87,6 +88,9 @@ WindowManager:
                 
                 on_release: 
                     app.root.current = "main"
+
+
+
             
             Button:
                 text: "Copy"

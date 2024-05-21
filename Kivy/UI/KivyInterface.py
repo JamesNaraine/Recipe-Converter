@@ -9,12 +9,13 @@ from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
 
-import threading
+from plyer import camera
 from kivy.core.clipboard import Clipboard
 from kivy.uix.screenmanager import ScreenManager, Screen
 import sys
 from pathlib import Path
 from kivy.uix.dropdown import DropDown
+from kivy.uix.image import Image
 
 
 parent_dir = str(Path(__file__).resolve().parent.parent.parent)
@@ -63,6 +64,8 @@ class MainWindow(Screen):
         self.language_dropdown.add_widget(French_button)
         self.language_dropdown.add_widget(German_button)
         self.language_dropdown.add_widget(Spanish_button)
+
+        self.img = Image()
         
 
     def open_measurement_dropdown(self):
@@ -117,8 +120,18 @@ class MainWindow(Screen):
         self.manager.get_screen("output").output_text = TranslatedOutput
         self.manager.current = "output"
         self.input_text.text = ""
-        
 
+    def take_picture(self, *args):
+        print("trying to take a picture")
+        try:
+            camera.take_picture(filename="picture.jpg", on_complete = self.on_picture_taken)
+        except NotImplementedError:
+            print("Camera feature is not implemented on this platform.")
+
+    def on_picture_taken(self, filepath):
+        if filepath:
+            self.img.source = filepath
+            self.img.reload()
 class LoadingWindow(Screen):
     pass
 
