@@ -55,23 +55,42 @@ WindowManager:
                 
 
             Button:
-                id: output
-                text: "Measurement"
+                id: measurement_button
+                text: root.measurement_button_text
+                on_release: root.open_measurement_dropdown()
 
 <LoadingWindow>:
     name: "Loading"
 
 <OutputWindow>:
     name: "output"
+    output: output_field
 
     BoxLayout:
-        orientation : "horizontal"
+        orientation : "vertical"
+        
 
-        Label:
+
+        TextInput:
+            
+            id: output_field
+            size_hint: 1, 0.8
             text: root.output_text
 
+        BoxLayout:
+            size_hint: 1, 0.2
 
-        Button:
-            text: "go back"
-            on_release: 
-                app.root.current = "main"
+            Button:
+                text: "go back"
+                
+                on_release: 
+                    app.root.current = "main"
+            
+            Button:
+                text: "Copy"
+                
+                on_release: 
+                    root.copy()
+
+
+        
