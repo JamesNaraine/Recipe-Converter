@@ -51,7 +51,9 @@ WindowManager:
 
 
             Button:
-                text: "Language"
+                id: language_button
+                text: root.language_button_text
+                on_release: root.open_language_dropdown()
                 
 
             Button:

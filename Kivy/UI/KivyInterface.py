@@ -25,11 +25,14 @@ if parent_dir not in sys.path:
 output_text = ""
 
 from conversion import main_loop
+from Translator import Translating
 
 class MainWindow(Screen):
     input_text = ObjectProperty(None)
     measurement_type = True
-    measurement_button_text = StringProperty("Measurement \n Imperial to Metric")
+    measurement_button_text = StringProperty("Measurement \nImperial to Metric")
+    target_language = StringProperty("en")
+    language_button_text = StringProperty("Language \nEnglish")
     
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
@@ -44,8 +47,29 @@ class MainWindow(Screen):
         self.measurement_dropdown.add_widget(imperial_btn)
         self.measurement_dropdown.add_widget(metric_btn)
 
+        self.language_dropdown = DropDown()
+
+        English_button = Button(text= "English", size_hint_y= None)
+        French_button = Button(text= "French", size_hint_y= None)
+        German_button = Button(text= "German", size_hint_y= None)
+        Spanish_button = Button(text= "Spanish", size_hint_y = None)
+
+        English_button.bind(on_release = lambda btn: self.select_language("English"))
+        French_button.bind(on_release = lambda btn: self.select_language("French"))
+        German_button.bind(on_release = lambda btn: self.select_language("German"))
+        Spanish_button.bind(on_release = lambda btn: self.select_language("Spanish"))
+
+        self.language_dropdown.add_widget(English_button)
+        self.language_dropdown.add_widget(French_button)
+        self.language_dropdown.add_widget(German_button)
+        self.language_dropdown.add_widget(Spanish_button)
+        
+
     def open_measurement_dropdown(self):
         self.measurement_dropdown.open(self.ids.measurement_button)
+
+    def open_language_dropdown(self):
+        self.language_dropdown.open(self.ids.language_button)
 
     def select_measurement(self, text):
         if text == "Imperial":
@@ -59,6 +83,24 @@ class MainWindow(Screen):
         else:
             print("possible error: selct measurement neither imperial or metric")
 
+    def select_language(self, text):
+        if text == "English":
+            self.target_language = "en"
+            self.language_button_text = "Language \nEnglish"
+        elif text == "French":
+            self.target_language = "fr"
+            self.language_button_text = "Language \nFrench"
+        elif text == "German":
+            self.target_language = "de"
+            self.language_button_text = "Language \nGerman"
+        elif text == "Spanish":
+            self.target_language = "es"
+            self.language_button_text = "Language \nSpanish"
+        else:
+            pass
+        
+    
+
 
 
 
@@ -70,7 +112,9 @@ class MainWindow(Screen):
         print(f"imperial {self.measurement_type}, input text = {input_text}")
         preTranslatedOutput = main_loop(self.measurement_type,input_text)
         print(preTranslatedOutput)
-        self.manager.get_screen("output").output_text = preTranslatedOutput
+        print(f"translating into {self.target_language} : {preTranslatedOutput}")
+        TranslatedOutput = Translating(preTranslatedOutput, self.target_language)
+        self.manager.get_screen("output").output_text = TranslatedOutput
         self.manager.current = "output"
         self.input_text.text = ""
         
