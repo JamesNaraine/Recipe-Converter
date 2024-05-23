@@ -42,7 +42,7 @@ WindowManager:
 
 
         GridLayout:
-            cols:3
+            cols:4
             size_hint: 0.8, 0.2
             pos_hint: {"center_x": 0.5, "top":0.7}
 
@@ -50,6 +50,10 @@ WindowManager:
                 text: "camera"
                 on_release: root.take_picture()
 
+            Button:
+                id: source_language
+                text: root.source_language_button_text
+                on_release: root.open_source_language()
 
             Button:
                 id: language_button
@@ -61,6 +65,8 @@ WindowManager:
                 id: measurement_button
                 text: root.measurement_button_text
                 on_release: root.open_measurement_dropdown()
+
+            
 
 <LoadingWindow>:
     name: "Loading"

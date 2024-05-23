@@ -33,7 +33,9 @@ class MainWindow(Screen):
     measurement_type = True
     measurement_button_text = StringProperty("Measurement \nImperial to Metric")
     target_language = StringProperty("en")
-    language_button_text = StringProperty("Language \nEnglish")
+    language_button_text = StringProperty("Target Language \nEnglish")
+    source_language_target = StringProperty("en")
+    source_language_button_text = StringProperty("Source Language \nEnglish")
     
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
@@ -65,6 +67,24 @@ class MainWindow(Screen):
         self.language_dropdown.add_widget(German_button)
         self.language_dropdown.add_widget(Spanish_button)
 
+        self.source_language_dropdown = DropDown()
+
+        English_button_source = Button(text= "English", size_hint_y= None)
+        French_button_source = Button(text= "French", size_hint_y= None)
+        German_button_source = Button(text= "German", size_hint_y= None)
+        Spanish_button_source = Button(text= "Spanish", size_hint_y = None)
+
+        English_button_source.bind(on_release = lambda btn: self.select_language_source("English"))
+        French_button_source.bind(on_release = lambda btn: self.select_language_source("French"))
+        German_button_source.bind(on_release = lambda btn: self.select_language_source("German"))
+        Spanish_button_source.bind(on_release = lambda btn: self.select_language_source("Spanish"))
+
+        self.source_language_dropdown.add_widget(English_button_source)
+        self.source_language_dropdown.add_widget(French_button_source)
+        self.source_language_dropdown.add_widget(German_button_source)
+        self.source_language_dropdown.add_widget(Spanish_button_source)
+
+
         self.img = Image()
         
 
@@ -73,6 +93,9 @@ class MainWindow(Screen):
 
     def open_language_dropdown(self):
         self.language_dropdown.open(self.ids.language_button)
+    
+    def open_source_language(self):
+        self.source_language_dropdown.open(self.ids.source_language)
 
     def select_measurement(self, text):
         if text == "Imperial":
@@ -89,16 +112,16 @@ class MainWindow(Screen):
     def select_language(self, text):
         if text == "English":
             self.target_language = "en"
-            self.language_button_text = "Language \nEnglish"
+            self.language_button_text = "Target Language \nEnglish"
         elif text == "French":
             self.target_language = "fr"
-            self.language_button_text = "Language \nFrench"
+            self.language_button_text = "Target Language \nFrench"
         elif text == "German":
             self.target_language = "de"
-            self.language_button_text = "Language \nGerman"
+            self.language_button_text = "Target Language \nGerman"
         elif text == "Spanish":
             self.target_language = "es"
-            self.language_button_text = "Language \nSpanish"
+            self.language_button_text = "Target Language \nSpanish"
         else:
             pass
         
@@ -107,7 +130,21 @@ class MainWindow(Screen):
 
 
 
-
+    def select_language_source(self, text):
+        if text == "English":
+            self.source_language_target = "en"
+            self.source_language_button_text = "Source Language \nEnglish"
+        elif text == "French":
+            self.source_language_target = "fr"
+            self.source_language_button_text = "Source Language \nFrench"
+        elif text == "German":
+            self.source_language_target = "de"
+            self.source_language_button_text = "Source Language \nGerman"
+        elif text == "Spanish":
+            self.source_language_target = "es"
+            self.source_language_button_text = "Source Language \nSpanish"
+        else:
+            pass
     
 
     def btn(self):
@@ -116,7 +153,7 @@ class MainWindow(Screen):
         preTranslatedOutput = main_loop(self.measurement_type,input_text)
         print(preTranslatedOutput)
         print(f"translating into {self.target_language} : {preTranslatedOutput}")
-        TranslatedOutput = Translating(preTranslatedOutput, self.target_language)
+        TranslatedOutput = Translating(preTranslatedOutput, self.source_language_target,self.target_language)
         self.manager.get_screen("output").output_text = TranslatedOutput
         self.manager.current = "output"
         self.input_text.text = ""
